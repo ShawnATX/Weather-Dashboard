@@ -1,0 +1,52 @@
+<!--
+    Content needed:
+    bootstrap container:
+    heading row, full width, no margin
+    main content: main row with 2 columns: search field/search history on left, current search results on right
+    Search content: input field and search button with heading, below this a list-group populated with previous searches. most recent search is added to the top of this list (prepend).Two rows in this content column.
+    Search results content: current weather results in big card(maybe), and 5-day results in smaller cards below this. 5-day results should be the same width as the current weather card above
+    current weather: city name heading with date in () & weather icon, temp, humidity, windspeed, UV index in vertical list below. UV index text has a representative background color based on human safety for current conditions. 
+    5-day forecast: small cards, colored background. date is heading, below is condition icon, temp and humidity.arranged horizontally
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="./assets/style.css">
+        <title>Weather Dashboard</title>
+    </head>
+    <body>
+        <div class="content-fluid">
+            <!-- header -->
+            <div class="row w-100 text-center bg-primary">
+                <div class="col-12">
+                    <header>
+                        <h1>Weather Dashboard</h1>
+                    </header>
+                </div>
+            </div>
+            <!-- main content -->
+            <div class="row w-100">
+                <!-- search and search history section -->
+                <div class="col-4">
+                    Search section
+                </div>
+                <!-- results section -->
+                <div class="col-8">
+                    Results section
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="./assets/script.js"></script>
+    </body>
+</html>
