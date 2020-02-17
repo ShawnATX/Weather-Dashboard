@@ -28,14 +28,103 @@
                 </div>
             </div>
             <!-- main content -->
-            <div class="row w-100">
+            <div class="row w-100 m-2">
+
                 <!-- search and search history section -->
-                <div class="col-4">
-                    Search section
+                <div class="col-4 bg-light">
+                    <!-- search input and button -->
+                    <div class="row w-100">
+                        <div class="col-12">
+                            <label for="cityInput">Search For A City:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="City name" id="cityInput" aria-label="cityInput" aria-describedby="searchSubmit">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="searchSubmit">Search</button>
+                                </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <!-- search history section -->
+                    <div class="row w-100 mt-3">
+                        <div class="col-12">
+                            <ul class="list-group" id="recentSearches">
+                                <li class="list-group-item">Sample City</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+
                 <!-- results section -->
                 <div class="col-8">
-                    Results section
+                    <!-- current weather result -->
+                    <div class="row w-100">
+                        <div class="col-12">
+                            <div class="jumbotron">
+                                <h2 id="currentWeatherCityName"></h2>
+                                <p>Temperature: <span id="currentTemperature"></span></p>
+                                <p>Humidity: <span id="currentHumidity"></span></p>
+                                <p>Wind Speed: <span id="currentWindSpeed"></span></p>
+                                <p>UV Index: <span id="currentUV"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row w-100">
+                        <h2>5-Day Forecast:</h2>
+                    </div>
+                    <!-- forecast cards -->
+                    <div class="row w-100">
+
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <h5 class="card-title" id="forecastDate">02-02-2020</h5> 
+                                <p id="icon"></p>
+                                <p class="card-text">Temp: <span id="forecastTemp"></span></p>
+                                <p class="card-text">Humidity: <span id="forecastHumidity"></span></p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <h5 class="card-title" id="forecastDate">02-02-2020</h5> 
+                                <p id="icon"></p>
+                                <p class="card-text">Temp: <span id="forecastTemp"></span></p>
+                                <p class="card-text">Humidity: <span id="forecastHumidity"></span></p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <h5 class="card-title" id="forecastDate">02-02-2020</h5> 
+                                <p id="icon"></p>
+                                <p class="card-text">Temp: <span id="forecastTemp"></span></p>
+                                <p class="card-text">Humidity: <span id="forecastHumidity"></span></p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <h5 class="card-title" id="forecastDate">02-02-2020</h5> 
+                                <p id="icon"></p>
+                                <p class="card-text">Temp: <span id="forecastTemp"></span></p>
+                                <p class="card-text">Humidity: <span id="forecastHumidity"></span></p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <h5 class="card-title" id="forecastDate">02-02-2020</h5> 
+                                <p id="icon"></p>
+                                <p class="card-text">Temp: <span id="forecastTemp"></span></p>
+                                <p class="card-text">Humidity: <span id="forecastHumidity"></span></p>
+                            </div>
+                        </div>
+                        <div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <h5 class="card-title" id="forecastDate">02-02-2020</h5> 
+                                <p id="icon"></p>
+                                <p class="card-text">Temp: <span id="forecastTemp"></span></p>
+                                <p class="card-text">Humidity: <span id="forecastHumidity"></span></p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
