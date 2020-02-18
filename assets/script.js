@@ -38,26 +38,77 @@ $("document").ready(function() {
     $("#searchSubmit").on("click", function(event){
         let cityName = $("#cityInput").val();
         cityName =  cityName.trim();
-        console.log(cityName);
-
         getWeatherResults(cityName);
     });
 
     //perform API requests for a specific city
     function getWeatherResults(city){
-        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+        let currentQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + apiKey;
+        let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=" + apiKey;
 
 
+        //get current weather conditions
         $.ajax({
-            url: queryURL,
+            url: currentQueryURL,
             method: "GET"
           }).then(function(response) {
-            //$("#movie-view").text(JSON.stringify(response));
-            console.log(JSON.stringify(response));
+            updateCurrentWeatherDisplay(response);
           });
+
+
+
+        //get forecast weather details
+        $.ajax({
+            url: forecastQueryURL,
+            method: "GET"
+          }).then(function(response) {
+            console.log(response);
+          });
+
+
+        
     }
 
+    //parse current weather response data and paint to the DOM
+    //this function will be responsible for gathering UV index information, as the response data has the requisite lat/lon data needed to get UVI
+    function updateCurrentWeatherDisplay(response){
+        let currentWeather = response;
+        console.log(currentWeather);
+        let date = getDate(parseInt(currentWeather.dt));
+        let city = currentWeather.name;
+        let temp = currentWeather.main.temp;
+        let humidity = currentWeather.main.humidity;
+        let wind = currentWeather.wind.speed;
+        let uvIndex = getUVIndex(currentWeather.coord);
 
+        $("#currentWeatherCityName").text(city + " " + date);
+        $("#currentTemperature").text(temp);
+        $("#currentHumidity").text(humidity);
+        $("#currentWindSpeed").text(wind);
+
+
+
+    }
+
+    //function which accepts a unix millisecond integer and returns a formatted date string
+    function getDate(time){
+        return(moment.unix(time).format('l'));
+    }
+
+    //function takes a coordinates object and returns a UV index integer
+    function getUVIndex(coordinates){
+        let uvqueryURL = "http://api.openweathermap.org/data/2.5/uvi?lon=" + coordinates.lon + "&lat=" + coordinates.lat + "&appid=" + apiKey;
+        $.ajax({
+            url: uvqueryURL,
+            method: "GET"
+          }).then(function(response) {
+            $("#currentUV").text(response.value);
+
+            //console.log(response.value);
+            //return (response.value);
+        }); 
+
+    }
 
 });
 
