@@ -37,10 +37,25 @@ $("document").ready(function() {
     //listen for new city search
     $("#searchSubmit").on("click", function(event){
         let cityName = $("#cityInput").val();
-        //cityName.trim();
+        cityName =  cityName.trim();
         console.log(cityName);
 
+        getWeatherResults(cityName);
     });
+
+    //perform API requests for a specific city
+    function getWeatherResults(city){
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+          }).then(function(response) {
+            //$("#movie-view").text(JSON.stringify(response));
+            console.log(JSON.stringify(response));
+          });
+    }
 
 
 
