@@ -54,6 +54,7 @@ $("document").ready(function() {
             method: "GET"
           }).then(function(response) {
             updateCurrentWeatherDisplay(response);
+            updateSearchHistory(response.name);
           });
 
 
@@ -74,6 +75,7 @@ $("document").ready(function() {
     //parse current weather response data and paint to the DOM
     //this function will be responsible for gathering UV index information, as the response data has the requisite lat/lon data needed to get UVI
     function updateCurrentWeatherDisplay(response){
+        $("#currentWeatherBox").empty();
         $("#currentWeatherBox").removeClass('hidden');
 
         let currentWeather = response;
@@ -85,18 +87,30 @@ $("document").ready(function() {
         getUVIndex(currentWeather.coord);
         let iconSRC = iconURL + (currentWeather.weather[0].icon) + ".png";
 
-        $("#currentWeatherCityName").text(city + " " + date);
-        $("#weatherIcon").attr("src", iconSRC).attr("alt", currentWeather.weather[0].main);
-        $("#currentTemperature").text(temp);
-        $("#currentHumidity").text(humidity);
-        $("#currentWindSpeed").text(wind);
+        let heading = $("<h2>").attr("id", "currentWeatherCityName");
+        heading.text(city + " " + date + " ");
+        let icon = $("<img>").attr("id", "weatherIcon");
+        icon.attr("src", iconSRC).attr("alt", currentWeather.weather[0].main);
+
+        let temperatureP = $("<p>Temperature: <span id='currentTemperature'>" + temp + "</span></p>");
+        let humidityP = $("<p>Humidity: <span id='currentHumidity'>" + humidity + "</span></p>");
+        let windP = $("<p>Wind Speed: <span id='currentWindSpeed'>" + wind + "</span></p>");
+        let uvP = $("<p>UV Index: <span id='currentUV'></span></p>");
+
+        $("#currentWeatherBox").append(heading);
+        heading.append(icon);
+        $("#currentWeatherBox").append(temperatureP);
+        $("#currentWeatherBox").append(humidityP);
+        $("#currentWeatherBox").append(windP);
+        $("#currentWeatherBox").append(uvP);
+
     }
 
     //function which accepts forecast object data and populates 5 days worth of cards with the forecase
     function updateForecastDisplay(forecast){
         for (i in forecast){
             console.log(getDate(forecast[i].dt));
-            
+
         }
     }
 
@@ -114,6 +128,10 @@ $("document").ready(function() {
           }).then(function(response) {
             $("#currentUV").text(response.value);
         }); 
+    }
+
+    function updateSearchHistory(name){
+        
     }
 });
 
