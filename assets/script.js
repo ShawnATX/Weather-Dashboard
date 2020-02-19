@@ -8,7 +8,7 @@ search results: current and forecast areas will be fully cleared and created dyn
 */
 
 const $cityInput = document.querySelector("#cityInput");
-const $searchHistory = document.querySelector("#recentSearches");
+const $searchHistory = $("#recentSearches");
 
 let apiKey = "87afb66ebd77a3851e1a006191d29852";
 let iconURL = "http://openweathermap.org/img/w/";
@@ -20,16 +20,38 @@ let searchHistory = {
 
 //retrieve any saved city search history. If exists, save to session variable
 function getStoredData(){
-    let getSearchHistory = JSON.parse(localStorage.getItem("weatherHistory"));
+let getSearchHistory = JSON.parse(localStorage.getItem("weatherHistory"));
     if (getSearchHistory){
         searchHistory = getSearchHistory;
+        for (city in searchHistory.cities){
+            updateSearchHistory(searchHistory.cities[city]);
+        }
     }
 }
 
+function updateSearchHistory(name){
+    //if city is not already in search history we will add it to storage and update the DOM
+    if (searchHistory.cities.indexOf(name) === -1){
+        searchHistory.cities.splice(0, 0, name);
+        localStorage.setItem("weatherHistory", JSON.stringify(searchHistory));
+        updateSearchHistoryList();      
+    }
+}
 
+function updateSearchHistoryList(){
+    $searchHistory.empty();
+    for (city in searchHistory.cities) {
+        console.log(searchHistory.cities[city]);
+        let newSearchItem = $("<li>");
+        newSearchItem.attr("class", "list-group-item previousSearch").text(searchHistory.cities[city]);
+        $searchHistory.append(newSearchItem);
+    }
+
+}
+ 
 
 $("document").ready(function() {
-    //listen for search history clicks
+    //listen for search history clicks. May want to refactor to pass cityID for repeated searches
     $("document").on("click", ".previousSearch", function(event){
        let cityName = $(this).text();
        getWeatherResults(cityName);
@@ -47,17 +69,14 @@ $("document").ready(function() {
         let currentQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + apiKey;
         let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=" + apiKey;
 
-
         //get current weather conditions
         $.ajax({
             url: currentQueryURL,
             method: "GET"
           }).then(function(response) {
             updateCurrentWeatherDisplay(response);
-            updateSearchHistory(response.name);
+            updateSearchHistory(response.name, response.id);
           });
-
-
 
         //get forecast weather details
         $.ajax({
@@ -103,7 +122,6 @@ $("document").ready(function() {
         $("#currentWeatherBox").append(humidityP);
         $("#currentWeatherBox").append(windP);
         $("#currentWeatherBox").append(uvP);
-
     }
 
     //function which accepts forecast object data and populates 5 days worth of cards with the forecase
@@ -119,7 +137,7 @@ $("document").ready(function() {
         return(moment.unix(time).format('l'));
     }
 
-    //function takes a coordinates object sets the DOM element directly when results are returned
+    //function takes a coordinates object and sets the DOM element directly when results are returned
     function getUVIndex(coordinates){
         let uvqueryURL = "http://api.openweathermap.org/data/2.5/uvi?lon=" + coordinates.lon + "&lat=" + coordinates.lat + "&appid=" + apiKey;
         $.ajax({
@@ -130,11 +148,10 @@ $("document").ready(function() {
         }); 
     }
 
-    function updateSearchHistory(name){
-        
-    }
+
 });
 
-
+//invoking localStorage check (hopefully) while document is loading
+getStoredData();
 
 
