@@ -113,7 +113,6 @@ $(document).ready(function() {
         $("#currentWeatherBox").append(uvP);
     }
 
-
     //function which accepts forecast object data and populates 5 days worth of cards with the forecast
     function updateForecastDisplay(forecast){
         //using forecast indexes 2, 10, 18, 26, 34 - this represents one forecast for each day. A more thorough approach would be to digest all data for each day and output relevant averages/min/max values
@@ -182,11 +181,16 @@ $(document).ready(function() {
         }); 
     }
 
+    
+    updateSearchHistoryList();
 
 });
 
-//invoking localStorage check (hopefully) while document is loading
+function clearStoredData(){
+    localStorage.clear();
+}
+
+//invoking localStorage check while document is loading
 getStoredData();
-updateSearchHistoryList();
 
 
