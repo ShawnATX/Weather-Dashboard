@@ -1,19 +1,20 @@
-<!--
-    Content needed:
-    bootstrap container:
-    heading row, full width, no margin
-    main content: main row with 2 columns: search field/search history on left, current search results on right
-    Search content: input field and search button with heading, below this a list-group populated with previous searches. most recent search is added to the top of this list (prepend).Two rows in this content column.
-    Search results content: current weather results in big card(maybe), and 5-day results in smaller cards below this. 5-day results should be the same width as the current weather card above
-    current weather: city name heading with date in () & weather icon, temp, humidity, windspeed, UV index in vertical list below. UV index text has a representative background color based on human safety for current conditions. 
-    5-day forecast: small cards, colored background. date is heading, below is condition icon, temp and humidity.arranged horizontally
--->
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link 
+            rel="stylesheet" 
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+            crossorigin="anonymous"
+        >
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+        />
         <link rel="stylesheet" href="./assets/style.css">
         <title>Weather Dashboard</title>
     </head>
@@ -21,9 +22,9 @@
         <div class="content-fluid">
             <!-- header -->
             <div class="row w-100 text-center bg-primary">
-                <div class="col-12">
+                <div class="col-12 p-3">
                     <header>
-                        <h1>Weather Dashboard</h1>
+                        <h1 class="text-light">Weather Dashboard</h1>
                     </header>
                 </div>
             </div>
@@ -31,7 +32,7 @@
             <div class="row w-100 m-2">
 
                 <!-- search and search history section -->
-                <div class="col-4 bg-light">
+                <div class="col-sm-4 bg-light">
                     <!-- search input and button -->
                     <div class="row w-100">
                         <div class="col-12">
@@ -39,7 +40,7 @@
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="City name" id="cityInput" aria-label="cityInput" aria-describedby="searchSubmit">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="searchSubmit">Search</button>
+                                    <button class="btn btn-outline-secondary bg-primary" type="button" id="searchSubmit"><i class="fas fa-search"></i></button>
                                 </div>
                           </div>
                         </div>
@@ -55,11 +56,11 @@
                 </div>
 
                 <!-- results section -->
-                <div class="col-8">
+                <div class="col-sm-8">
                     <!-- current weather result -->
                     <div class="row w-100">
                         <div class="col-12">
-                            <div class="jumbotron hidden" id="currentWeatherBox">
+                            <div class="jumbotron hidden py-5 mb-1" id="currentWeatherBox">
                                 <!-- <h2 id="currentWeatherCityName"></h2><img src="" alt="" id="weatherIcon"> -->
                                 <p>Temperature: <span id="currentTemperature"></span></p>
                                 <p>Humidity: <span id="currentHumidity"></span></p>
@@ -68,7 +69,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row w-100">
+                    <div class="row w-100 mx-2">
                         <h2>5-Day Forecast:</h2>
                     </div>
                     <!-- forecast cards -->

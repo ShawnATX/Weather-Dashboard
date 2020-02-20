@@ -33,7 +33,6 @@ function updateSearchHistory(name){
 function updateSearchHistoryList(){
     $searchHistory.empty();
     for (city in searchHistory.cities) {
-        console.log(searchHistory.cities[city]);
         let newSearchItem = $("<li>");
         newSearchItem.attr("class", "list-group-item previousSearch m-1").text(searchHistory.cities[city]);
         $searchHistory.append(newSearchItem);
@@ -41,10 +40,9 @@ function updateSearchHistoryList(){
 }
  
 
-$("document").ready(function() {
+$(document).ready(function() {
     //listen for search history clicks. May want to refactor to pass cityID for repeated searches
-    $("document").on("click", ".previousSearch", function(){
-        console.log(this);
+    $(document).on("click", ".previousSearch", function(){
        let cityName = $(this).text();
        getWeatherResults(cityName);
     });
@@ -75,7 +73,6 @@ $("document").ready(function() {
             url: forecastQueryURL,
             method: "GET"
           }).then(function(response) {
-            console.log(response);
             updateForecastDisplay(response.list);
           });
 
@@ -121,6 +118,7 @@ $("document").ready(function() {
     function updateForecastDisplay(forecast){
         //using forecast indexes 2, 10, 18, 26, 34 - this represents one forecast for each day. A more thorough approach would be to digest all data for each day and output relevant averages/min/max values
         let forecastArray = [forecast[2], forecast[10], forecast[18], forecast[26], forecast[34]];
+        $forecastArea.empty();
         for (i in forecastArray){
             let nextCard = $("<div>");
             nextCard.attr("class", "card mx-3").attr("style", "width: 10rem;");
@@ -147,26 +145,6 @@ $("document").ready(function() {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //function which accepts a unix millisecond integer and returns a formatted date string
     function getDate(time){
         return(moment.unix(time).format('l'));
@@ -179,7 +157,28 @@ $("document").ready(function() {
             url: uvqueryURL,
             method: "GET"
           }).then(function(response) {
-            $("#currentUV").text(response.value);
+            let uvIndex = parseFloat(response.value);
+            $('#currentUV').removeClass();
+            $("#currentUV").text(uvIndex);
+            
+            
+            switch (true) {
+                case (uvIndex >= 11):
+                    $("#currentUV").attr("class", "bg-purple p-2 rounded")
+                    break;
+                case (uvIndex >= 8):
+                    $("#currentUV").attr("class", "bg-danger p-2 rounded")
+                    break;
+                case (uvIndex >= 6):
+                    $("#currentUV").attr("class", "bg-orange p-2 rounded")
+                    break;
+                case (uvIndex >= 3):
+                    $("#currentUV").attr("class", "bg-warning p-2 rounded")
+                    break;
+                default:
+                    $("#currentUV").attr("class", "bg-success p-2 rounded")
+                    break;
+            }
         }); 
     }
 

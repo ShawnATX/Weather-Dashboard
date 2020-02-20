@@ -4,3 +4,12 @@
 div.hidden{
     visibility: hidden;
 }
+
+
+.bg-purple{
+    background-color: #6f42c1;
+}
+
+.bg-orange{
+    background-color: #fd7e14;
+}
